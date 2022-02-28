@@ -20,9 +20,10 @@ app.use(bodyParser.json());
 
 app.post('/api/booking'
     , (req, res) => {
-        const dataToSend = req.body;
-        console.log(dataToSend)
-        //axios.post(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatID}&text=${dataToSend}`);
+        const response = req.body;
+        //const dataToSend = 'Người nhận: ' + response.receiver + '\nĐịa chỉ: ' + response.address + '\nSố điện thoại: ' + response.phone + '\nĐơn hàng: ' + response.parcel
+        const dataToSend = `Người nhận: ${response.receiver}\nĐịa chỉ: ${response.address}\nSố điện thoại: ${response.phone}\nĐơn hàng: ${response.parcel}`
+        axios.post(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatID}&text=${encodeURIComponent(dataToSend)}`);
     })
 
 app.get('/api/test'
